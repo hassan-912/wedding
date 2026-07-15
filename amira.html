@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Dream Wedding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --rose-gold: #e5b0a3;
+            --glowing-gold: #f3d082;
+            --deep-rose: #d38d80;
+            --blush-bg: #fff5f5;
+            --pure-white: #ffffff;
+            --text-classic: #5a4b48;
+            --envelope-color: #cf929d;
+            --envelope-dark: #b87b86;
+            --envelope-light: #dfa8b2;
+            --font-accent: 'Alex Brush', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #fff7f6 0%, #fff0f1 100%);
+            color: var(--text-classic);
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* --- FLOATING MUSIC BUTTON --- */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--rose-gold), var(--glowing-gold));
+            border: none;
+            color: white;
+            padding: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(229, 176, 163, 0.5);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+        #music-control.playing {
+            animation: spin 4s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- SPARKLING GLITTER BACKGROUND --- */
+        .sparkle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: radial-gradient(circle, #fff 10%, transparent 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatSparkle 5s linear infinite;
+        }
+
+        @keyframes floatSparkle {
+            0% { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- SHIMMER EFFECT FOR BUTTONS AND TICKET --- */
+        .shimmer-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 30%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.6) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shimmerSwipe 4s infinite;
+        }
+        @keyframes shimmerSwipe {
+            0% { left: -60%; }
+            30% { left: 140%; }
+            100% { left: 140%; }
+        }
+
+        /* --- SCREEN 1: CLASSIC INTERACTIVE 3D ENVELOPE --- */
+        #gatekeeper-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #fff0f1 0%, #fae1e2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            perspective: 1500px;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 420px;
+            max-width: 90vw;
+            height: 310px;
+            background-color: var(--envelope-dark);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--envelope-dark);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        .flap-left {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--envelope-color);
+            clip-path: polygon(0 0, 50% 50%, 0 100%);
+            z-index: 3;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .flap-right {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 100%; height: 100%;
+            background: var(--envelope-color);
+            clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+            z-index: 3;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .flap-bottom {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--envelope-light);
+            clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+            z-index: 3;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Fixed Top Flap Animation */
+        .flap-top {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--envelope-color);
+            clip-path: polygon(0 0, 100% 0, 50% 55%, 0 0);
+            transform-origin: top center;
+            z-index: 4;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s, z-index 0s 1.2s;
+            filter: drop-shadow(0 4px 5px rgba(0,0,0,0.1));
+            border-radius: 12px 12px 0 0;
+        }
+
+        .letter-card {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            width: 90%;
+            height: 280px;
+            background: var(--pure-white);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            z-index: 2;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1) 1.5s;
+        }
+
+        .letter-card h2 {
+            font-family: var(--font-accent);
+            color: var(--deep-rose);
+            font-size: 3rem;
+            line-height: 1.1;
+        }
+
+        .letter-card h3 {
+            font-size: 1.1rem;
+            margin-top: 5px;
+            font-weight: 600;
+            color: var(--text-classic);
+        }
+
+        .letter-card p {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #8c7672;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: calc(55% - 45px);
+            left: calc(50% - 45px);
+            width: 90px;
+            height: 90px;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
+        }
+
+        .wax-seal:hover {
+            transform: scale(1.06) rotate(5deg);
+        }
+
+        /* --- ANIMATED STATES FOR ENVELOPE --- */
+        .envelope-wrapper.open .wax-seal {
+            transform: scale(0) rotate(-90deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope-wrapper.open .flap-top {
+            transform: rotateX(180deg);
+            z-index: 1; /* Wait for delay, then drop to back */
+        }
+
+        .envelope-wrapper.open .letter-card {
+            transform: translateY(-180px);
+        }
+
+        #gatekeeper-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .prompt-text {
+            margin-top: 30px;
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: #8c7672;
+            font-style: italic;
+            animation: breathe 2.5s infinite ease-in-out;
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* --- SCREEN 2: MAIN INVITATION SITE --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1.8s ease-in;
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .names-header { margin-bottom: 50px; }
+        .names-header h1 {
+            font-family: var(--font-accent);
+            color: var(--deep-rose);
+            font-size: 6rem;
+            line-height: 1;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+        }
+        .names-header p {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            color: #7a6865;
+        }
+        .names-header .wedding-date {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--rose-gold);
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .photo-card {
+            border: 2px solid rgba(229, 176, 163, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--pure-white);
+            padding: 12px;
+            box-shadow: 0 10px 25px rgba(221, 164, 151, 0.15);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--rose-gold);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 290px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .timer-section {
+            background: var(--pure-white);
+            border: 1px solid rgba(229, 176, 163, 0.4);
+            border-radius: 24px;
+            padding: 40px 25px;
+            margin: 50px 0;
+            box-shadow: 0 12px 30px rgba(221, 164, 151, 0.15);
+        }
+
+        .timer-section h3 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            letter-spacing: 2px;
+            color: var(--text-classic);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .countdown { display: flex; justify-content: center; gap: 15px; }
+
+        .time-box {
+            background: linear-gradient(135deg, #fffcfc 0%, #fff0f1 100%);
+            border: 1px solid rgba(229, 176, 163, 0.25);
+            min-width: 80px;
+            padding: 20px 5px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.3rem;
+            font-weight: 400;
+            font-family: var(--font-serif);
+            color: var(--deep-rose);
+        }
+
+        .time-box label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #9c8480;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* --- ENHANCED LOCATION STYLING --- */
+        .location-section { margin: 60px 0; }
+
+        .location-card {
+            background: var(--pure-white);
+            border: 1px solid rgba(229, 176, 163, 0.35);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px rgba(221, 164, 151, 0.12);
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+            position: relative;
+        }
+
+        .location-icon {
+            font-size: 2.5rem;
+            color: var(--rose-gold);
+            margin-bottom: 15px;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        .location-details h3 {
+            font-family: var(--font-accent);
+            color: var(--deep-rose);
+            font-size: 3.8rem;
+            line-height: 1.1;
+        }
+
+        .venue-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+            margin: 15px auto;
+        }
+
+        .venue-name {
+            font-size: 2rem !important;
+            margin-top: 10px;
+            font-weight: 600;
+            color: var(--text-classic);
+            font-family: var(--font-serif);
+            letter-spacing: 1px;
+        }
+
+        .venue-address {
+            margin-top: 12px;
+            font-size: 1.1rem;
+            color: #705d5a;
+            line-height: 1.6;
+        }
+
+        .venue-hint {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #9c8480;
+        }
+
+        .directions-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--rose-gold), var(--glowing-gold));
+            color: white !important;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 25px;
+            box-shadow: 0 6px 20px rgba(229, 176, 163, 0.4);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .directions-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(229, 176, 163, 0.6);
+        }
+
+        .map-container {
+            border: 3px solid rgba(229, 176, 163, 0.4);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(221, 164, 151, 0.2);
+            position: relative;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent;
+            z-index: 5;
+            pointer-events: auto;
+        }
+        .map-container.active .map-overlay { pointer-events: none; }
+        .map-container iframe { width: 100%; height: 380px; border: 0; display: block; }
+    </style>
+</head>
+<body>
+
+    <audio id="wedding-music" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-control" onclick="toggleMusic()"><i class="fa-solid fa-music"></i></button>
+
+    <div class="sparkle-container" id="sparkle-layer"></div>
+
+    <div id="gatekeeper-screen">
+        <div class="envelope-wrapper" id="invitation-envelope" onclick="openInvitation()">
+            <div class="envelope-back"></div>
+
+            <div class="letter-card">
+                <h2>Save The Date</h2>
+                <h3>Wedding Invitation</h3>
+                <p>You are warmly invited</p>
+            </div>
+
+            <div class="flap-left"></div>
+            <div class="flap-right"></div>
+            <div class="flap-bottom"></div>
+            <div class="flap-top"></div>
+            
+            <div class="wax-seal" id="seal-btn">
+                <svg viewBox="0 0 120 120" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="sealShadow" x="-10%" y="-10%" width="130%" height="130%">
+                            <feDropShadow dx="1" dy="4" stdDeviation="3" flood-color="#4a300d" flood-opacity="0.4"/>
+                        </filter>
+                        <radialGradient id="goldGrad" cx="45%" cy="45%" r="55%">
+                            <stop offset="0%" stop-color="#fff9d6"/>
+                            <stop offset="25%" stop-color="#ffda73"/>
+                            <stop offset="65%" stop-color="#d49d2c"/>
+                            <stop offset="90%" stop-color="#915b07"/>
+                            <stop offset="100%" stop-color="#593700"/>
+                        </radialGradient>
+                        <linearGradient id="sealSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+                            <stop offset="30%" stop-color="#ffffff" stop-opacity="0.0"/>
+                            <stop offset="70%" stop-color="#3d2400" stop-opacity="0.0"/>
+                            <stop offset="100%" stop-color="#3d2400" stop-opacity="0.5"/>
+                        </linearGradient>
+                    </defs>
+
+                    <g filter="url(#sealShadow)">
+                        <path d="M 56,8 C 76,6 99,11 107,30 C 115,48 113,70 103,88 C 95,103 77,112 56,108 C 43,106 44,95 36,92 C 27,89 21,88 19,80 C 17,74 22,71 19,66 C 16,61 12,54 12,46 C 12,25 33,10 56,8 Z" fill="url(#goldGrad)"/>
+                        <path d="M 56,8 C 76,6 99,11 107,30 C 115,48 113,70 103,88 C 95,103 77,112 56,108 C 43,106 44,95 36,92 C 27,89 21,88 19,80 C 17,74 22,71 19,66 C 15,61 12,54 12,46 C 12,25 33,10 56,8 Z" fill="url(#sealSheen)"/>
+                        <circle cx="58" cy="55" r="33" fill="none" stroke="#523100" stroke-width="2.5" opacity="0.4"/>
+                        <circle cx="58" cy="55" r="32" fill="none" stroke="#ffeaa1" stroke-width="2" opacity="0.85"/>
+                        <g transform="translate(58, 55)">
+                            <text x="0" y="5" font-family="'Alex Brush', cursive" font-size="28" font-weight="bold" text-anchor="middle" fill="#4f3002" opacity="0.8">A</text>
+                            <text x="1" y="6" font-family="'Alex Brush', cursive" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffdf7a" opacity="0.95">A</text>
+                            <text x="0" y="21" font-family="'Montserrat', sans-serif" font-size="6" font-weight="bold" letter-spacing="2" text-anchor="middle" fill="#4f3002" opacity="0.8">OPEN</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <p class="prompt-text">Tap seal to open envelope</p>
+    </div>
+
+    <div id="main-content">
+        
+        <div class="names-header">
+            <h1>Alex & Sophia</h1>
+            <p>Are getting married</p>
+            <p class="wedding-date">July 26, 2026</p>
+        </div>
+
+        <div class="photo-gallery">
+            <div class="photo-card">
+                <img src="C:\Users\AZB\OneDrive - Egyptian E-Learning University\Desktop\1.jpg" alt="Prewedding Moment">
+            </div>
+            <div class="photo-card">
+                <img src="C:\Users\AZB\OneDrive - Egyptian E-Learning University\Desktop\2.jpg" alt="Beautiful Details">
+            </div>
+            <div class="photo-card">
+                <img src="C:\Users\AZB\OneDrive - Egyptian E-Learning University\Desktop\3.jpg" alt="Love and Laugh">
+            </div>
+        </div>
+
+        <div class="timer-section shimmer-glow">
+            <h3>Counting down to the magical moment</h3>
+            <div class="countdown">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>Mins</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <label>Secs</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-section">
+            <div class="location-card">
+                <div class="location-details">
+                    <i class="fa-solid fa-location-dot location-icon"></i>
+                    <h3>The Wedding Venue</h3>
+                    <div class="venue-divider"></div>
+                    
+                    <p class="venue-name">Rose For Wedding</p>
+                    
+                    <p class="venue-address">
+                        Al-Maryoutiya, Saqqara Tourist Road<br>
+                        (Pyramids Area)
+                        <span class="venue-hint"><i class="fa-solid fa-star" style="font-size: 0.7rem; margin-right: 5px;"></i>10 minutes past the Cataract Hotel</span>
+                    </p>
+                </div>
+                
+                <a href="https://www.google.com/maps/search/Rose+For+Wedding+Al-Maryoutiya+Saqqara+Tourist+Road" target="_blank" class="directions-btn">
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+                    <span>Get Directions</span>
+                </a>
+            </div>
+            
+            <div class="map-container" id="map-wrapper" onclick="enableMapScroll()">
+                <div class="map-overlay" id="map-lock"></div>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110531.02677940251!2d31.066472493393792!3d29.98047913361546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145845000411a7a7%3A0xc62283eabf1f2e4a!2sAl%20Haram%2C%20Giza%20Governorate%2C%20Egypt!5e0!3m2!1sen!2sus!4v1715000000000!5m2!1sen!2sus"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const weddingDate = new Date("Jul 26, 2026 19:00:00").getTime();
+        const music = document.getElementById("wedding-music");
+        const musicControl = document.getElementById("music-control");
+
+        // Action when guest clicks envelope or seal
+        function openInvitation() {
+            const envelope = document.getElementById("invitation-envelope");
+            const gatekeeper = document.getElementById("gatekeeper-screen");
+            
+            envelope.classList.add("open");
+            
+            // Wait for 3D unfold transition to finish before switching screens
+            setTimeout(() => {
+                gatekeeper.classList.add("fade-out");
+            }, 3200);
+
+            setTimeout(() => {
+                const main = document.getElementById("main-content");
+                main.style.opacity = "1";
+                startSparkling();
+            }, 3600);
+
+            // Start music at 17 seconds
+            music.currentTime = 17;
+            music.play().then(() => {
+                musicControl.style.display = "block";
+                musicControl.classList.add("playing");
+            }).catch(err => {
+                console.log("Audio play postponed. User interaction required.");
+                musicControl.style.display = "block";
+            });
+        }
+
+        // Toggle Music Play/Pause
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicControl.classList.add("playing");
+            } else {
+                music.pause();
+                musicControl.classList.remove("playing");
+            }
+        }
+
+        // Floating Sparkles Animation
+        function startSparkling() {
+            const container = document.getElementById("sparkle-layer");
+            setInterval(() => {
+                const sparkle = document.createElement("div");
+                sparkle.classList.add("sparkle");
+                
+                const size = Math.random() * 8 + 4;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                
+                const colors = ["#ffffff", "#f3d082", "#e5b0a3", "#fff0f1"];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                sparkle.style.background = randomColor;
+                sparkle.style.boxShadow = `0 0 10px ${randomColor}`;
+
+                sparkle.style.animationDuration = `${Math.random() * 3 + 4}s`;
+
+                container.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 7000);
+            }, 300);
+        }
+
+        // Map lock toggle interaction
+        function enableMapScroll() {
+            const mapWrapper = document.getElementById("map-wrapper");
+            mapWrapper.classList.add("active");
+        }
+
+        // Lock map back when mouse leaves or guest clicks outside
+        document.addEventListener('click', function(event) {
+            const mapWrapper = document.getElementById("map-wrapper");
+            if (!mapWrapper.contains(event.target)) {
+                mapWrapper.classList.remove("active");
+            }
+        });
+
+        // Live Countdown Logic
+        const countdownTimer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerHTML = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerHTML = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerHTML = s < 10 ? "0" + s : s;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.querySelector(".countdown").innerHTML = "<p style='color: var(--deep-rose); font-size: 1.5rem; font-family: var(--font-serif);'>The celebration has begun!</p>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
