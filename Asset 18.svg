@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 879.12 903.33">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Degradado_sin_nombre_42);
+      }
+
+      .cls-1, .cls-2 {
+        mix-blend-mode: multiply;
+      }
+
+      .cls-3 {
+        fill: url(#Degradado_sin_nombre_8-4);
+        filter: url(#drop-shadow-2);
+      }
+
+      .cls-2 {
+        fill: url(#Degradado_sin_nombre_5);
+      }
+
+      .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-5 {
+        fill: url(#Degradado_sin_nombre_11);
+        filter: url(#outer-glow-1);
+      }
+
+      .cls-6 {
+        fill: #fff;
+      }
+
+      .cls-7 {
+        fill: url(#Degradado_sin_nombre_8-3);
+      }
+
+      .cls-8 {
+        fill: url(#Degradado_sin_nombre_8-2);
+      }
+
+      .cls-9 {
+        fill: url(#Degradado_sin_nombre_8);
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_11" data-name="Degradado sin nombre 11" x1="1453.24" y1="1841.88" x2="1453.24" y2="1278.98" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e06d6d"/>
+      <stop offset=".01" stop-color="#df6c6c"/>
+      <stop offset=".62" stop-color="#c75756"/>
+      <stop offset="1" stop-color="#bf504f"/>
+    </linearGradient>
+    <filter id="outer-glow-1" x="3.12" y="301.17" width="866.88" height="593.04" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur" stdDeviation="5"/>
+      <feFlood flood-color="#c6c5c5" flood-opacity=".25"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="Degradado_sin_nombre_8" data-name="Degradado sin nombre 8" x1="436.58" y1="316.27" x2="436.58" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e06d6d"/>
+      <stop offset=".66" stop-color="#eb7e7e"/>
+      <stop offset="1" stop-color="#f38a8a"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_5" data-name="Degradado sin nombre 5" x1="436.58" y1="25.03" x2="436.58" y2="316.27" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3f3f3" stop-opacity="0"/>
+      <stop offset=".32" stop-color="#f2f2f2" stop-opacity="0"/>
+      <stop offset=".46" stop-color="#f2f2f2" stop-opacity=".04"/>
+      <stop offset=".57" stop-color="#f1f1f1" stop-opacity=".09"/>
+      <stop offset=".66" stop-color="#f0f0f0" stop-opacity=".17"/>
+      <stop offset=".73" stop-color="#efefef" stop-opacity=".27"/>
+      <stop offset=".8" stop-color="#eee" stop-opacity=".4"/>
+      <stop offset=".86" stop-color="#ececec" stop-opacity=".54"/>
+      <stop offset=".92" stop-color="#eaeaea" stop-opacity=".72"/>
+      <stop offset=".98" stop-color="#e8e8e8" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#e7e7e7"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_42" data-name="Degradado sin nombre 42" x1="436.58" y1="835.1" x2="436.58" y2="316.27" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3f3f3" stop-opacity="0"/>
+      <stop offset=".33" stop-color="#f2f2f2" stop-opacity=".01"/>
+      <stop offset=".48" stop-color="#f1f1f1" stop-opacity=".05"/>
+      <stop offset=".58" stop-color="#efefee" stop-opacity=".11"/>
+      <stop offset=".67" stop-color="#ebebeb" stop-opacity=".19"/>
+      <stop offset=".75" stop-color="#e7e7e7" stop-opacity=".31"/>
+      <stop offset=".82" stop-color="#e2e2e2" stop-opacity=".44"/>
+      <stop offset=".89" stop-color="#dcdcdb" stop-opacity=".61"/>
+      <stop offset=".95" stop-color="#d5d5d4" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#cececd"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_8-2" data-name="Degradado sin nombre 8" x1="18.22" y1="597.71" x2="396.2" y2="597.71" xlink:href="#Degradado_sin_nombre_8"/>
+    <linearGradient id="Degradado_sin_nombre_8-3" data-name="Degradado sin nombre 8" x1="476.96" y1="597.71" x2="854.94" y2="597.71" xlink:href="#Degradado_sin_nombre_8"/>
+    <linearGradient id="Degradado_sin_nombre_8-4" data-name="Degradado sin nombre 8" x1="1453.24" y1="1841.88" x2="1453.24" y2="1525.61" xlink:href="#Degradado_sin_nombre_8"/>
+    <filter id="drop-shadow-2" x="0" y="544.77" width="879.12" height="358.56" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="3"/>
+      <feGaussianBlur result="blur-2" stdDeviation="7"/>
+      <feFlood flood-color="#010101" flood-opacity=".2"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g class="cls-4">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <rect class="cls-5" x="18.22" y="316.27" width="836.72" height="562.9"/>
+          <path class="cls-9" d="M380.65,19.96L18.22,316.27h836.72L492.51,19.96c-32.54-26.61-79.33-26.61-111.87,0Z"/>
+          <path class="cls-6" d="M451.24,30.26c-5.28-4.32-10.89-5.23-14.66-5.23s-9.37.91-14.66,5.23L72.1,316.27v518.84h728.95V316.27L451.24,30.26Z"/>
+          <g>
+            <path class="cls-2" d="M72.1,316.27L421.92,30.26c5.29-4.32,10.89-5.23,14.66-5.23s9.37.91,14.66,5.23l349.82,286H72.1Z"/>
+            <rect class="cls-1" x="72.1" y="316.27" width="728.95" height="518.84"/>
+          </g>
+          <path class="cls-8" d="M354.05,673.03L18.22,879.16V316.27l335.84,206.13c56.19,34.49,56.19,116.14,0,150.63Z"/>
+          <path class="cls-7" d="M519.11,673.03l335.84,206.13V316.27l-335.84,206.13c-56.19,34.49-56.19,116.14,0,150.63Z"/>
+          <path class="cls-3" d="M380.65,582.85L18.22,879.16h836.72l-362.43-296.31c-32.54-26.61-79.33-26.61-111.87,0Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
